@@ -4,7 +4,7 @@
 
 import 'package:comunicate_colegios_app/models/person_models.dart';
 
-import '../Providers.dart';
+import '../../providers/Providers.dart';
 
 import 'dart:convert';
 

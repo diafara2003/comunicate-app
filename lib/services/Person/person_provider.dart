@@ -2,7 +2,7 @@ import 'package:comunicate_colegios_app/models/person_models.dart';
 import 'package:comunicate_colegios_app/models/search_to_models.dart';
 import 'package:comunicate_colegios_app/services/Auth/PreferenciasUsuario.dart';
 
-import '../Providers.dart';
+import '../../providers/Providers.dart';
 
 class PersonProvider {
   Future<List<SearchTo>> getTo(String filter) async {

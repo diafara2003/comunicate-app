@@ -1,3 +1,4 @@
+import 'package:comunicate_colegios_app/providers/push_notificacion_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/calendar/calendar_pages.dart';
@@ -25,6 +26,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+
+    final provider = new PushNotificacionProvider();
+
+    provider.initNotificacions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

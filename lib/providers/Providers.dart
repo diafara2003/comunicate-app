@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import 'Auth/PreferenciasUsuario.dart';
+import '../services/Auth/PreferenciasUsuario.dart';
 
 class Providers {
   String _getToken() {

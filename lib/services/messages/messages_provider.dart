@@ -10,7 +10,7 @@ import 'package:comunicate_colegios_app/models/person_models.dart';
 import 'package:comunicate_colegios_app/models/response_models.dart';
 import 'package:comunicate_colegios_app/services/Auth/PreferenciasUsuario.dart';
 
-import '../Providers.dart';
+import '../../providers/Providers.dart';
 
 class MessageProvider {
   Future<List<MessageDTO>> getMessages(int tipo) async {
