@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "941291535614",
+    "project_id": "comunicate-app-e0370",
+    "storage_bucket": "comunicate-app-e0370.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941291535614:android:b1889bcdca1026ac57b9af",
+        "android_client_info": {
+          "package_name": "com.example.comunicate_colegios_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941291535614-03nrb8lnuaspf9et8dh2pg3002pol2s8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.comunicate_colegios_app",
+            "certificate_hash": "4c431babf63bd4524d0f1ffddb8492b0131200ac"
+          }
+        },
+        {
+          "client_id": "941291535614-e2foiap8t5q5sb8v5i90kpeo82c6th9c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXecS1Wa_GF_BAIt06MX4nH__gvDc_kNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941291535614-e2foiap8t5q5sb8v5i90kpeo82c6th9c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
