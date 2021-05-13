@@ -86,7 +86,7 @@ class _ChatPagesState extends State<ChatPages> {
 
     return Card(
       color: isMe ? Colors.lightBlue[50] : Colors.white,
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(5.0),
       elevation: 1.0,
       child: Padding(
         padding: const EdgeInsets.all(8.0),

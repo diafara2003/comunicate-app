@@ -1,3 +1,4 @@
+import 'package:comunicate_colegios_app/providers/Providers.dart';
 import 'package:comunicate_colegios_app/providers/push_notificacion_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -11,14 +12,21 @@ import 'services/Auth/PreferenciasUsuario.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = new PreferenciasUsuario();
-  dynamic token = await prefs.initPrefs();
+  await prefs.initPrefs();
+
+  String token = prefs.token;
+
+  bool _sesion = await new Providers().verificarSession();
+
+  if (!_sesion) token = token = null;
+
   runApp(MyApp(token));
 }
 
 class MyApp extends StatefulWidget {
-  final String token = "";
+  final String _token;
 
-  MyApp(token);
+  MyApp(this._token);
 
   // This widget is the root of your application.
   @override
@@ -26,6 +34,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
+
+  final GlobalKey<ScaffoldMessengerState> scaffoldKey =
+      new GlobalKey<ScaffoldMessengerState>();
+
   @override
   void initState() {
     super.initState();
@@ -33,16 +47,30 @@ class _MyAppState extends State<MyApp> {
     final provider = new PushNotificacionProvider();
 
     provider.initNotificacions();
+
+    PushNotificacionProvider.messageString.listen((message) {
+      print('My app: $message');
+      navigatorKey.currentState
+          ?.pushNamed(HomeMessagesPages.routeName, arguments: message);
+
+      final snackBar = SnackBar(content: Text('Nuevo mensaje'));
+
+      scaffoldKey.currentState?.showSnackBar(snackBar);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Comunicate App',
+      navigatorKey: navigatorKey,
+      scaffoldMessengerKey: scaffoldKey,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: SignInPages.routeName,
+      initialRoute: widget._token != null
+          ? HomeMessagesPages.routeName
+          : SignInPages.routeName,
       // widget.token != '' ? HomePages.routeName : SignInPages.routeName,
       routes: {
         HomePages.routeName: (BuildContext context) => HomePages(),

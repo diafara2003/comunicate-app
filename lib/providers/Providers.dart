@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:comunicate_colegios_app/models/person_models.dart';
+import 'package:comunicate_colegios_app/services/Auth/login_provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../services/Auth/PreferenciasUsuario.dart';
@@ -10,6 +12,21 @@ class Providers {
     PreferenciasUsuario _prefe = new PreferenciasUsuario();
 
     return _prefe.token;
+  }
+
+  Future<bool> verificarSession() async {
+    dynamic _userLogged = new PreferenciasUsuario().usuario;
+
+    if (_userLogged == null) return false;
+
+    Usuario _session = Usuario.fromJson(_userLogged);
+    Usuario _user = await new LoginProvider()
+        .validationUser(_session.perDocumento, _session.perClave);
+
+    if (_user != null)
+      return true;
+    else
+      return false;
   }
 
   final Map<String, String> requestHeaders = {

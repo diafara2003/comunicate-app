@@ -1,7 +1,6 @@
 import 'package:comunicate_colegios_app/models/person_models.dart';
 import 'package:comunicate_colegios_app/pages/calendar/calendar_pages.dart';
 import 'package:comunicate_colegios_app/pages/messages/home_messages.dart';
-import 'package:comunicate_colegios_app/pages/profile/profile_pages.dart';
 import 'package:comunicate_colegios_app/services/Auth/PreferenciasUsuario.dart';
 import 'package:flutter/material.dart';
 
@@ -61,14 +60,14 @@ class _MenuWidgetState extends State<MenuWidget> {
             },
           ),
           Divider(),
-          ListTile(
-            leading: Icon(Icons.account_circle_sharp),
-            title: Text('Perfil'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, ProfilePages.routeName);
-            },
-          ),
-          Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.account_circle_sharp),
+          //   title: Text('Perfil'),
+          //   onTap: () {
+          //     Navigator.pushReplacementNamed(context, ProfilePages.routeName);
+          //   },
+          // ),
+          // Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Cerrar sesion'),

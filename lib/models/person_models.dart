@@ -12,7 +12,7 @@ class Usuario {
     // this.perRh,
     // this.perEps,
     // this.perUsuario,
-    // this.perClave,
+    this.perClave,
     // this.perEstado,
     // this.perTipoPerfil,
     // this.perFechanacimiento,
@@ -34,7 +34,7 @@ class Usuario {
   // dynamic perRh;
   // dynamic perEps;
   // dynamic perUsuario;
-  // String perClave;
+  String perClave;
   // bool perEstado;
   // int perTipoPerfil;
   // dynamic perFechanacimiento;
@@ -56,7 +56,7 @@ class Usuario {
         // perRh: json["PerRH"],
         // perEps: json["PerEPS"],
         // perUsuario: json["PerUsuario"],
-        // perClave: json["PerClave"],
+        perClave: json["PerClave"],
         // perEstado: json["PerEstado"],
         // perTipoPerfil: json["PerTipoPerfil"],
         // perFechanacimiento: json["PerFechanacimiento"],
@@ -79,7 +79,7 @@ class Usuario {
         // "PerRH": perRh,
         // "PerEPS": perEps,
         // "PerUsuario": perUsuario,
-        // "PerClave": perClave,
+        "PerClave": perClave,
         // "PerEstado": perEstado,
         // "PerTipoPerfil": perTipoPerfil,
         // "PerFechanacimiento": perFechanacimiento,
