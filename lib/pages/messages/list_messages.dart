@@ -129,20 +129,23 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                         height: 100,
                       ));
                 } else
-                  return ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                      return (Container(
-                        child: Column(
-                          children: [
-                            renderMessage(snapshot.data[index]),
-                            Divider(
-                              color: Colors.grey.shade400,
-                            )
-                          ],
-                        ),
-                      ));
-                    },
-                    itemCount: snapshot.data.length,
+                  return RefreshIndicator(
+                    onRefresh: getMessages,
+                    child: ListView.builder(
+                      itemBuilder: (BuildContext context, int index) {
+                        return (Container(
+                          child: Column(
+                            children: [
+                              renderMessage(snapshot.data[index]),
+                              Divider(
+                                color: Colors.grey.shade400,
+                              )
+                            ],
+                          ),
+                        ));
+                      },
+                      itemCount: snapshot.data.length,
+                    ),
                   );
               }
             },

@@ -3,6 +3,7 @@
 //     final loginProvider = loginProviderFromJson(jsonString);
 
 import 'package:comunicate_colegios_app/models/person_models.dart';
+import 'package:comunicate_colegios_app/models/response_models.dart';
 
 import '../../providers/Providers.dart';
 
@@ -28,6 +29,23 @@ class LoginProvider {
         "usuario": usuario.toJson(),
         "token": token,
       };
+
+  Future<void> registarToken(String token) async {
+    Providers obj = new Providers();
+
+    PreferenciasUsuario _prefe = new PreferenciasUsuario();
+
+    try {
+      final Usuario _user = Usuario.fromJson(_prefe.usuario);
+
+      Map<String, dynamic> _result = await obj.postAPI('login/tokenFCM',
+          {"LgId": 0, "UsuarioId": _user.perId, "TokenFCM": token}, 0);
+
+      ResponseDto _response = ResponseDto.fromMap(_result);
+    } catch (e) {
+      return null;
+    }
+  }
 
   Future<Usuario> validationUser(String email, String password) async {
     Providers obj = new Providers();

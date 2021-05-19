@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:comunicate_colegios_app/services/Auth/login_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class PushNotificacionProvider {
@@ -30,6 +31,8 @@ class PushNotificacionProvider {
 
     print('========= token ===========');
     print('token $token');
+
+    await new LoginProvider().registarToken(token);
 
     _firebaseMessaging.configure(
         onMessage: onMessage,
