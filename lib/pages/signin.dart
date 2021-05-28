@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:comunicate_colegios_app/models/person_models.dart';
-import 'package:comunicate_colegios_app/pages/profile/profile_pages.dart';
+import 'package:comunicate_colegios_app/pages/messages/home_messages.dart';
 import 'package:comunicate_colegios_app/services/Auth/login_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -56,8 +56,8 @@ class _SignInPagesState extends State<SignInPages> {
           emailcontroller.text, passwordcontroller.text);
 
       if (_user != null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => ProfilePages()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => HomeMessagesPages()));
       } else {
         showAlertDialog(context, "Inicio de sesion", "Usuario no encontrado");
         setState(() {
