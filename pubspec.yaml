@@ -38,6 +38,7 @@ dependencies:
   flutter_tags: ^0.4.9+1
   timeago: ^3.0.2
   flutter_clean_calendar: ^1.0.2
+  table_calendar: ^2.0.1
   shared_preferences:
 
 dev_dependencies:

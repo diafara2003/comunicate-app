@@ -1,3 +1,4 @@
+import 'package:comunicate_colegios_app/pages/calendar/calendar_to_do_pages.dart';
 import 'package:comunicate_colegios_app/providers/Providers.dart';
 import 'package:comunicate_colegios_app/providers/push_notificacion_provider.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,9 @@ class _MyAppState extends State<MyApp> {
         SignInPages.routeName: (BuildContext context) => SignInPages(),
         HomeMessagesPages.routeName: (BuildContext context) =>
             HomeMessagesPages(),
-        CalendarPages.routeName: (BuildContext context) => CalendarPages()
+        CalendarPages.routeName: (BuildContext context) => CalendarPages(),
+        CalendarToDoPages.routeName: (BuildContext context) =>
+            CalendarToDoPages()
       },
       debugShowCheckedModeBanner: false,
     );
