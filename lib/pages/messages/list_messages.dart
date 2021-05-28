@@ -21,7 +21,7 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
     return await _messagesProvider.getMessages(this.widget.tipo);
   }
 
-  Container renderMessage(MessageDTO modelo) {
+  Widget renderMessage(MessageDTO modelo) {
     String nombre = modelo.perNombres;
     String apellido = modelo.perApellidos;
     String fecha = modelo.menFecha;
@@ -29,74 +29,59 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
     DateTime tempDate = DateFormat('d/M/yyyy hh:mm').parse(fecha);
 
     return Container(
-      margin: EdgeInsets.only(top: 8.0, bottom: 5.0, right: 20.0, left: 10.0),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      ChatPages(modelo.menId, modelo.perNombres)));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+      padding: EdgeInsets.only(left: 2.0, top: 8.0),
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.all(1.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                // border: Border.all(
+                //     width: 2, color: Theme.of(context).secondaryHeaderColor),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.blueGrey.withOpacity(0.4),
+                      spreadRadius: 2,
+                      blurRadius: 2)
+                ]),
+            child: CircleAvatar(
+              radius: 25.0,
+              child: Text(Utilities.inicialesUsuario(nombre, apellido)),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.80,
+            padding: EdgeInsets.only(
+              left: 15,
+            ),
+            child: Column(
               children: [
-                GestureDetector(
-                  child: CircleAvatar(
-                    radius: 25.0,
-                    child: Text(Utilities.inicialesUsuario(nombre, apellido)),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '$nombre $apellido',
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      timeago.format(tempDate, locale: 'es'),
+                      style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black54),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  width: 10.0,
-                ),
+                SizedBox(height: 10.0),
                 Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '$nombre $apellido',
-                        style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.43,
-                        child: Text(
-                          modelo.menAsunto,
-                          style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                  alignment: Alignment.topLeft,
+                  child: Text(modelo.menAsunto),
+                )
               ],
             ),
-            Column(
-              children: [
-                Text(
-                  // modelo.menFecha
-                  timeago.format(tempDate, locale: 'es'),
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 8.0,
-                ),
-              ],
-            ),
-            Divider()
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -104,52 +89,57 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Container(
-          padding: EdgeInsets.only(top: 15.0),
-          child: FutureBuilder(
-            future: getMessages(),
-            builder: (BuildContext contex,
-                AsyncSnapshot<List<MessageDTO>> snapshot) {
-              if (!snapshot.hasData)
-                return Center(child: CircularProgressIndicator());
-              else {
-                if (snapshot.data.length == 0) {
-                  return Card(
-                      elevation: 2.0,
-                      child: Container(
-                        color: Colors.blue[200],
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Center(
-                            child: Text(
-                          'No hay mensajes',
-                          style:
-                              TextStyle(color: Colors.black87, fontSize: 15.0),
-                        )),
-                        width: MediaQuery.of(context).size.width,
-                        height: 100,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: FutureBuilder(
+          future: getMessages(),
+          builder:
+              (BuildContext contex, AsyncSnapshot<List<MessageDTO>> snapshot) {
+            if (!snapshot.hasData)
+              return Center(child: CircularProgressIndicator());
+            else {
+              if (snapshot.data.length == 0) {
+                return Card(
+                    elevation: 2.0,
+                    child: Container(
+                      color: Colors.blue[200],
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Center(
+                          child: Text(
+                        'No hay mensajes',
+                        style: TextStyle(color: Colors.black87, fontSize: 15.0),
+                      )),
+                      width: MediaQuery.of(context).size.width,
+                      height: 100,
+                    ));
+              } else
+                return RefreshIndicator(
+                  onRefresh: getMessages,
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      return (GestureDetector(
+                        onTap: () {
+                          MessageDTO modelo = snapshot.data[index];
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatPages(
+                                      modelo.menId, modelo.perNombres)));
+                        },
+                        child: Column(
+                          children: [
+                            renderMessage(snapshot.data[index]),
+                            Divider(
+                              color: Colors.grey.shade400,
+                            )
+                          ],
+                        ),
                       ));
-                } else
-                  return RefreshIndicator(
-                    onRefresh: getMessages,
-                    child: ListView.builder(
-                      itemBuilder: (BuildContext context, int index) {
-                        return (Container(
-                          child: Column(
-                            children: [
-                              renderMessage(snapshot.data[index]),
-                              Divider(
-                                color: Colors.grey.shade400,
-                              )
-                            ],
-                          ),
-                        ));
-                      },
-                      itemCount: snapshot.data.length,
-                    ),
-                  );
-              }
-            },
-          )),
-    );
+                    },
+                    itemCount: snapshot.data.length,
+                  ),
+                );
+            }
+          },
+        ));
   }
 }
