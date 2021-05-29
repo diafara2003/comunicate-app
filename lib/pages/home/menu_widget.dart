@@ -38,11 +38,6 @@ class _MenuWidgetState extends State<MenuWidget> {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(
-                        'https://i.pinimg.com/originals/26/49/d0/2649d00fb18378864e9b2479143c7466.jpg'),
-                    fit: BoxFit.cover)),
           ),
           ListTile(
             leading: Icon(Icons.mail_rounded),
