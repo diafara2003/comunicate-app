@@ -24,10 +24,10 @@ class _MenuWidgetState extends State<MenuWidget> {
           UserAccountsDrawerHeader(
             accountName: Text(
               "${_session.perNombres} ${_session.perApellidos}",
-              style: TextStyle(color: Colors.blue[300], fontSize: 18),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             accountEmail: Text(_session.perDocumento,
-                style: TextStyle(color: Colors.blue[300], fontSize: 15)),
+                style: TextStyle(color: Colors.white, fontSize: 15)),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset(
@@ -47,23 +47,23 @@ class _MenuWidgetState extends State<MenuWidget> {
                   context, HomeMessagesPages.routeName);
             },
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.today_outlined),
-            title: Text('Calendario'),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, CalendarPages.routeName);
-            },
-          ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.today_outlined),
-            title: Text('Calendario to do'),
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                  context, CalendarToDoPages.routeName);
-            },
-          ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.today_outlined),
+          //   title: Text('Calendario'),
+          //   onTap: () {
+          //     Navigator.pushReplacementNamed(context, CalendarPages.routeName);
+          //   },
+          // ),
+          // Divider(),
+          // ListTile(
+          //   leading: Icon(Icons.today_outlined),
+          //   title: Text('Calendario to do'),
+          //   onTap: () {
+          //     Navigator.pushReplacementNamed(
+          //         context, CalendarToDoPages.routeName);
+          //   },
+          // ),
           Divider(),
           ListTile(
             leading: Icon(Icons.exit_to_app),

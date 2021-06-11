@@ -62,13 +62,18 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                     Text(
                       '$nombre $apellido',
                       style: TextStyle(
-                          fontSize: 16.0, fontWeight: FontWeight.w500),
+                          fontSize: 16.0,
+                          fontWeight: modelo.banHoraLeido == null
+                              ? FontWeight.w600
+                              : FontWeight.w300),
                     ),
                     Text(
                       timeago.format(tempDate, locale: 'es'),
                       style: TextStyle(
                           fontSize: 11,
-                          fontWeight: FontWeight.w300,
+                          fontWeight: modelo.banHoraLeido == null
+                              ? FontWeight.w600
+                              : FontWeight.w300,
                           color: Colors.black54),
                     )
                   ],
@@ -76,7 +81,13 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                 SizedBox(height: 10.0),
                 Container(
                   alignment: Alignment.topLeft,
-                  child: Text(modelo.menAsunto),
+                  child: Text(
+                    modelo.menAsunto,
+                    style: TextStyle(
+                        fontWeight: modelo.banHoraLeido == null
+                            ? FontWeight.w600
+                            : FontWeight.w300),
+                  ),
                 )
               ],
             ),
