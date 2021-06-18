@@ -1,6 +1,7 @@
 import 'package:comunicate_colegios_app/pages/calendar/calendar_to_do_pages.dart';
 import 'package:comunicate_colegios_app/providers/Providers.dart';
 import 'package:comunicate_colegios_app/providers/push_notificacion_provider.dart';
+import 'package:comunicate_colegios_app/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/calendar/calendar_pages.dart';
@@ -66,9 +67,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Comunicate App',
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: scaffoldKey,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      // theme: MyTheme.lighttheme,
+      // themeMode: ThemeMode.system,
+      // darkTheme: MyTheme.darktheme,
       initialRoute: widget._token != null
           ? HomeMessagesPages.routeName
           : SignInPages.routeName,

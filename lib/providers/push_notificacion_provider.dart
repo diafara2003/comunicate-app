@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:comunicate_colegios_app/services/Auth/login_provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 class PushNotificacionProvider {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -21,6 +22,7 @@ class PushNotificacionProvider {
       // Handle notification message
       messageStringController.add('notificacion');
     }
+    FlutterAppBadger.updateBadgeCount(1);
 
     // Or do other work.
   }
@@ -42,6 +44,7 @@ class PushNotificacionProvider {
   }
 
   Future<dynamic> onLaunch(Map<String, dynamic> message) async {
+    FlutterAppBadger.removeBadge();
     messageStringController.add('notificacion');
   }
 
@@ -50,6 +53,7 @@ class PushNotificacionProvider {
   }
 
   Future<dynamic> onMessage(Map<String, dynamic> message) async {
+    FlutterAppBadger.updateBadgeCount(1);
     messageStringController.add('notificacion');
   }
 

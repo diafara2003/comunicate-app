@@ -12,8 +12,9 @@ import 'package:flutter_html/flutter_html.dart';
 class ChatPages extends StatefulWidget {
   final int id;
   final String nombre;
+  final String apellido;
 
-  ChatPages(this.id, this.nombre);
+  ChatPages(this.id, this.nombre, this.apellido);
 
   @override
   _ChatPagesState createState() => _ChatPagesState();
@@ -85,9 +86,9 @@ class _ChatPagesState extends State<ChatPages> {
     //  DateFormat('dd/MM/yyyy').format(mensaje.menFecha);
 
     return Card(
-      color: isMe ? Colors.lightBlue[50] : Colors.white,
+      color: isMe ? Utilities.hexToColor('#99d8ff') : Colors.white,
       margin: EdgeInsets.all(5.0),
-      elevation: 1.0,
+      elevation: 1.5,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -98,13 +99,12 @@ class _ChatPagesState extends State<ChatPages> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    radius: 25.0,
-                    child: Text(
-                      Utilities.inicialesUsuario(mensaje.usuario.perNombres,
-                          mensaje.usuario.perApellidos),
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                  ),
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 20.0,
+                      child: Text(
+                          Utilities.inicialesUsuario(mensaje.usuario.perNombres,
+                              mensaje.usuario.perApellidos),
+                          style: TextStyle(color: Colors.white))),
                   SizedBox(
                     width: 10.0,
                   ),
@@ -116,8 +116,7 @@ class _ChatPagesState extends State<ChatPages> {
                         Text(
                           'De:',
                           textAlign: TextAlign.left,
-                          style:
-                              TextStyle(color: Colors.black45, fontSize: 18.0),
+                          style: TextStyle(),
                         ),
                         Text(
                             '${mensaje.usuario.perNombres} ${mensaje.usuario.perApellidos}')
@@ -129,7 +128,7 @@ class _ChatPagesState extends State<ChatPages> {
                         children: [
                           Text(
                             formattedDate,
-                            style: TextStyle(color: Colors.black45),
+                            style: TextStyle(),
                           )
                         ],
                       ),
@@ -143,8 +142,7 @@ class _ChatPagesState extends State<ChatPages> {
                   data: document,
                   defaultTextStyle: TextStyle(
                     fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
               )
@@ -159,79 +157,92 @@ class _ChatPagesState extends State<ChatPages> {
     if (_msnCurrent.menBloquearRespuesta == 1)
       return Container();
     else
-      return Container(
-        height: 110.0,
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        color: Colors.white,
-        child: Row(
-          children: [
-            IconButton(
-                color: Theme.of(context).primaryColor,
-                iconSize: 25.0,
-                icon: Icon(Icons.photo),
-                onPressed: () {}),
-            Expanded(
-                child: TextField(
-              textCapitalization: TextCapitalization.sentences,
-              controller: msncontroller,
-              onChanged: (value) {
-                setState(() {});
-              },
-              decoration: InputDecoration(hintText: 'Enviar mensaje...'),
-            )),
-            IconButton(
-                color: Theme.of(context).primaryColor,
-                iconSize: 25.0,
-                icon: Icon(Icons.send),
-                onPressed: () {
-                  _enviarMensaje();
-                }),
-          ],
-        ),
+      return Row(
+        children: [
+          Expanded(
+              child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0 * 0.74),
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Row(children: [
+                    SizedBox(
+                      width: 20.0 / 4,
+                    ),
+                    Expanded(
+                        child: TextField(
+                            decoration: InputDecoration(
+                                hintText: "Escribir mensaje",
+                                border: InputBorder.none),
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: msncontroller,
+                            onChanged: (value) {
+                              setState(() {});
+                            })),
+                    IconButton(
+                        icon: Icon(Icons.send),
+                        color: Theme.of(context)
+                            .textTheme
+                            .bodyText1
+                            .color
+                            .withOpacity(0.64),
+                        onPressed: () {
+                          _enviarMensaje();
+                        }),
+                  ])))
+        ],
       );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: Text(
-          this.widget.nombre,
-          style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+        appBar: AppBar(
+          title: Row(
+            children: [
+              Text(
+                '${this.widget.nombre} ${this.widget.apellido}',
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
         ),
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
+        body: Column(
           children: [
             Expanded(
-              child: Container(
-                child: ClipRect(
-                    child: FutureBuilder(
-                        future: getMessages(),
-                        builder: (BuildContext contex,
-                            AsyncSnapshot<List<MessageDetatails>> snapshot) {
-                          if (!snapshot.hasData)
-                            return Center(child: CircularProgressIndicator());
-                          else
-                            return ListView.builder(
-                              itemBuilder: (BuildContext context, int index) {
-                                final MessageDetatails message =
-                                    snapshot.data[index];
-                                final bool isMe =
-                                    message.menUsuario == currentUser.perId;
-                                return _buildMessage(message, isMe);
-                              },
-                              itemCount: lstMessages.length,
-                            );
-                        })),
-              ),
+              child: FutureBuilder(
+                  future: getMessages(),
+                  builder: (BuildContext contex,
+                      AsyncSnapshot<List<MessageDetatails>> snapshot) {
+                    if (!snapshot.hasData)
+                      return Center(child: CircularProgressIndicator());
+                    else
+                      return ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          final MessageDetatails message = snapshot.data[index];
+                          final bool isMe =
+                              message.menUsuario == currentUser.perId;
+                          return _buildMessage(message, isMe);
+                        },
+                        itemCount: lstMessages.length,
+                      );
+                  }),
             ),
-            _buildessageComposer()
+            Container(
+              child: SafeArea(child: _buildessageComposer()),
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 4),
+                        blurRadius: 32,
+                        color: Color(0xFF087949).withOpacity(0.08))
+                  ]),
+            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

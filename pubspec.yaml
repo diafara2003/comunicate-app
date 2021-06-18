@@ -40,10 +40,22 @@ dependencies:
   flutter_clean_calendar: ^1.0.2
   table_calendar: ^2.0.1
   shared_preferences:
+  flutter_app_badger:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_native_splash:
+  
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#1a1a1a"
+  image: images/icon/splash_dark.jpg
+  image_dark: images/icon/splash_dark.png
+  android: true
+  ios: true
+  
 
 
   flutter_launcher_icons:
@@ -53,6 +65,7 @@ flutter_icons:
   ios: true
   image_path: "images/icon/logo.png"
   adaptive_icon_background: "images/icon/logo.png"
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

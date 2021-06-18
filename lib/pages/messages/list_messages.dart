@@ -45,8 +45,12 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                       blurRadius: 2)
                 ]),
             child: CircleAvatar(
+              backgroundColor: Theme.of(context).colorScheme.primary,
               radius: 25.0,
-              child: Text(Utilities.inicialesUsuario(nombre, apellido)),
+              child: Text(
+                Utilities.inicialesUsuario(nombre, apellido),
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
           Container(
@@ -70,11 +74,12 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                     Text(
                       timeago.format(tempDate, locale: 'es'),
                       style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: modelo.banHoraLeido == null
-                              ? FontWeight.w600
-                              : FontWeight.w300,
-                          color: Colors.black54),
+                        fontSize: 11,
+                        fontWeight: modelo.banHoraLeido == null
+                            ? FontWeight.w600
+                            : FontWeight.w300,
+                        // color: Colors.black54
+                      ),
                     )
                   ],
                 ),
@@ -110,9 +115,9 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
             else {
               if (snapshot.data.length == 0) {
                 return Card(
-                    elevation: 2.0,
+                    elevation: 1.0,
                     child: Container(
-                      color: Colors.blue[200],
+                      color: Theme.of(context).colorScheme.primaryVariant,
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Center(
                           child: Text(
@@ -133,8 +138,8 @@ class _ListMessagesPagesState extends State<ListMessagesPages> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ChatPages(
-                                      modelo.menId, modelo.perNombres)));
+                                  builder: (context) => ChatPages(modelo.menId,
+                                      modelo.perNombres, modelo.perApellidos)));
                         },
                         child: Column(
                           children: [
